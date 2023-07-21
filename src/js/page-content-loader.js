@@ -45,8 +45,8 @@ export function isOnHomePage() {
         'http://localhost:1234/', 
         'http://localhost:1234/index.html',
         // and if deployed
-        'https://humbubahumbuba.github.io/team-js/',
-        'https://humbubahumbuba.github.io/team-js/index.html'
+        'https://ivan-tkachuk.github.io/films/',
+        'https://ivan-tkachuk.github.io/films/index.html'
     ];
 
     return HOME_URLS.includes(currentPageURL);
