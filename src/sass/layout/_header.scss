@@ -1,0 +1,216 @@
+.header {
+  position: relative;
+  height: 230px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(0, 0, 0, 0.56);
+  background-image: linear-gradient(
+      rgba(47, 48, 58, 0.4),
+      rgba(47, 48, 58, 0.4)
+    ),
+    url(../images/header-mob.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background-image: linear-gradient(
+        rgba(47, 48, 58, 0.4),
+        rgba(47, 48, 58, 0.4)
+      ),
+      url(../images/header-mob@2x.jpg);
+  }
+
+  @include tablet {
+    height: 219px;
+    background-image: linear-gradient(
+        rgba(47, 48, 58, 0.4),
+        rgba(47, 48, 58, 0.4)
+      ),
+      url(../images/header-tab.jpg);
+
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          rgba(47, 48, 58, 0.4),
+          rgba(47, 48, 58, 0.4)
+        ),
+        url(../images/header-tab@2x.jpg);
+    }
+  }
+
+  @include desktop {
+    height: 216px;
+
+    background-image: linear-gradient(
+        rgba(47, 48, 58, 0.4),
+        rgba(47, 48, 58, 0.4)
+      ),
+      url(../images/header-desktop.jpg);
+
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          rgba(47, 48, 58, 0.4),
+          rgba(47, 48, 58, 0.4)
+        ),
+        url(../images/header-desktop@2x.jpg);
+    }
+  }
+}
+
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.nav {
+  display: flex;
+}
+.nav__list {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.nav__item {
+  font-size: 12px;
+  color: $secondary-text-color;
+}
+
+.nav__item:not(:last-child) {
+  margin-right: 39px;
+}
+
+.nav__btn-wrapper {
+  height: 30px;
+}
+
+.nav__item.active {
+  position: relative;
+}
+.nav__item.active::after {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: $line-color;
+}
+
+.nav__link {
+  text-transform: uppercase;
+  @include font(12, 500, 1.16);
+  color: $secondary-text-color;
+  &:hover,
+  &:focus {
+    color: $trird-text-color;
+    transition: $transition;
+  }
+}
+
+.nav__auth-btn {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  stroke: $secondary-text-color;
+  fill: $secondary-text-color;
+  transition: $transition;
+  &:hover,
+  &:focus {
+    stroke: $sixth-text-color;
+    fill: $sixth-text-color;
+    transform: scale(1.4);
+  }
+}
+
+.input {
+  margin-top: 50px;
+  // position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  position: relative;
+}
+
+.input__wraper {
+  width: 280px;
+  @media screen and (min-width: $tablet) {
+    width: 336px;
+  }
+  @media screen and (min-width: $desktop) {
+    width: 394;
+  }
+}
+
+.header__input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  height: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  color: $secondary-text-color;
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid $secondary-text-color;
+  padding: 0 0 4px 1px;
+  outline: none;
+  width: 100%;
+}
+
+.header__input::placeholder {
+  color: $secondary-text-color;
+}
+
+.header__container {
+  height: 216px;
+  position: relative;
+}
+.input__search-btn {
+  cursor: pointer;
+  position: absolute;
+  content: '';
+
+  width: 18px;
+  height: 18px;
+
+  right: 0px;
+  bottom: 0px;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  stroke: $secondary-text-color;
+  fill: $secondary-text-color;
+  transition: $transition;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.4);
+  }
+}
+
+.input__error {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.17;
+  margin-top: 20px;
+  color: $line-color;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+
+

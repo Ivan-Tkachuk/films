@@ -1,0 +1,40 @@
+<header class="header-mylibrary">
+  <div class="header-mylibrary__container container">
+    <div class="header-mylibrary__wrapper">
+      <a class="logo" href="./index.html">
+        <div class="header__logo">
+          <svg class="header-mylibrary__logo--icon" width="24px" height="24px">
+            <use href="./images/icons.svg#icon-logo"></use>
+          </svg>
+        </div>
+        <span class="header-mylibrary__logo--text">Filmoteka</span>
+      </a>
+
+      <nav class="nav-mylibrary">
+        <ul class="nav-mylibrary__list">
+          <li class="nav-mylibrary__item">
+            <a class="nav-mylibrary__link" href="index.html"> home </a>
+          </li>
+          <li class="nav-mylibrary__item active">
+            <a class="nav-mylibrary__link" id="js-library" href="./library.html">
+              my library
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="button-mylibrary__wrap">
+      <button class="button js-watched" type="button" data-action="watched">
+        Watched
+      </button>
+      <button class="button js-queue" type="button" data-action="queue">queue</button>
+    </div>
+    <label class="form-switch">
+      <input type="checkbox" id="theme-switch-toggle" />
+      <i></i>
+      <svg class="theme-switch__icon" aria-label="moon" fill="#ff001b">
+        <use href="./images/icons.svg#moon"></use>
+      </svg>
+    </label>
+  </div>
+</header>

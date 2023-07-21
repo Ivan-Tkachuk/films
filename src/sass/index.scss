@@ -1,0 +1,23 @@
+@import './utils/mixins';
+
+@import './common';
+
+@import './components/logo';
+@import './components/container';
+@import './components/button';
+@import './components/backdrop';
+@import './components/modalMovie';
+@import './components/loader-spinner';
+@import './components/switch-theme';
+
+@import './layout/header';
+@import './layout/header-mylibrary';
+@import './layout/main-gallery';
+
+@import './layout/mylibrary';
+
+@import './layout/auth-modal';
+
+@import './components/pagination';
+@import './components/scroll-up-arrow.scss';
+@import './layout/footer';
