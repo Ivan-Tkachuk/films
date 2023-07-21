@@ -68,9 +68,11 @@ function handleAuth() {
 
 	// close on hitting Escape button
 	document.body.addEventListener('keyup', (e) => {
-		if (e.key === 'Escape') {
-			document.querySelector('.modal.active').classList.remove('active');
-			document.querySelector('.overlay').classList.remove('active');
+		if(document.querySelector('.modal.active')) {
+			if (e.key === 'Escape') {
+				document.querySelector('.modal.active').classList.remove('active');
+				document.querySelector('.overlay').classList.remove('active');
+			}
 		}
 	});
 

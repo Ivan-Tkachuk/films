@@ -25,3 +25,8 @@
   pointer-events: none;
   transform: translateY(-100px);
 }
+
+.visually-hidden {
+  display: none;
+  /* або інші стилі, які роблять елемент невидимим для користувача */
+}

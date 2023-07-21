@@ -43,8 +43,8 @@ function closeModalOnEscapePress(event) {
   if (event.code === 'Escape') {
     hideModal();
     document.removeEventListener('keydown', closeModalOnEscapePress);
-    movieImg.classList.add('visually-hidden');
-    moviePoster.classList.add('visually-hidden');
+    // movieImg.classList.add('visually-hidden');
+    // moviePoster.classList.add('visually-hidden');
 
   }
 }
@@ -52,8 +52,8 @@ function closeModalOnEscapePress(event) {
 function onBackdropClick(event) {
   if (event.target === event.currentTarget) {
     hideModal();
-    movieImg.classList.add('visually-hidden');
-    moviePoster.classList.add('visually-hidden');
+    // movieImg.classList.add('visually-hidden');
+    // moviePoster.classList.add('visually-hidden');
 
   }
 }
