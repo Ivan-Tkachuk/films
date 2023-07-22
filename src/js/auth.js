@@ -67,14 +67,24 @@ function handleAuth() {
 	}
 
 	// close on hitting Escape button
-	document.body.addEventListener('keyup', (e) => {
-		if(document.querySelector('.modal.active')) {
+	document.body.addEventListener('keyup', (e) => {	
 			if (e.key === 'Escape') {
+				e.preventDefault();
+				if(document.querySelector('.modal.active')) {
 				document.querySelector('.modal.active').classList.remove('active');
 				document.querySelector('.overlay').classList.remove('active');
 			}
 		}
 	});
+
+	// document.body.addEventListener('keyup', (e) => {
+	// 		if (e.key === 'Escape') {
+	// 			e.preventDefault();
+	// 			document.querySelector('.modal.active').classList.remove('active');
+	// 			document.querySelector('.overlay').classList.remove('active');
+	// 		}
+	// });
+
 
 	refs.overlay.addEventListener('click', function () {
 		document.querySelector('.modal.active').classList.remove('active');

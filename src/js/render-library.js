@@ -12,7 +12,7 @@ onWatchedLibraryBtnClick();
 watchedLibraryBtn.addEventListener('click', onWatchedLibraryBtnClick);
 queueLibraryBtn.addEventListener('click', onQueueLibraryBtnClick);
 closeModalBtn.addEventListener('click', updateLibraryMarkup);
-document.addEventListener('keydown', event => closeModalOnEscape(event));
+document.addEventListener('keyup', event => closeModalOnEscape(event));
 backdgop.addEventListener('click', event => closeModalOnbackDrop(event));
 
 function onWatchedLibraryBtnClick() {
@@ -112,44 +112,43 @@ async function fetchLibraryMovieByID(id) {
   return data;
 }
 
+
 function updateLibraryMarkup() {
   const parsedWatchedFilms = JSON.parse(localStorage.getItem('watchedList'));
   const parsedQueueFilms = JSON.parse(localStorage.getItem('queueList'));
 
-  if (!parsedWatchedFilms || parsedWatchedFilms.length === 0) {
+  const watchedFilmsEmpty = !parsedWatchedFilms || parsedWatchedFilms.length === 0;
+  const queueFilmsEmpty = !parsedQueueFilms || parsedQueueFilms.length === 0;
+
+  let showEmptyLibrary = false;
+
+  if (watchedLibraryBtn.classList.contains('active-button') && watchedFilmsEmpty) {
+    showEmptyLibrary = true;
+  } else if (queueLibraryBtn.classList.contains('active-button') && queueFilmsEmpty) {
+    showEmptyLibrary = true;
+  }
+
+  if (showEmptyLibrary) {
     libraryListRef.innerHTML = '';
     emptyLibraryContaineRef.style.display = 'block';
-  }
-  //
-  else if (!parsedQueueFilms || parsedQueueFilms.length === 0) {
-    libraryListRef.innerHTML = '';
-    emptyLibraryContaineRef.style.display = 'block';
-  }
-  //
-  else if (
-    watchedLibraryBtn.classList.contains('active-button') &&
-    parsedWatchedFilms.length > 0
-  ) {
+  } else {
     emptyLibraryContaineRef.style.display = 'none';
     libraryListRef.innerHTML = '';
-    infinityScroll(parsedWatchedFilms)
-  }
-  //
-  else if (
-    queueLibraryBtn.classList.contains('active-button') &&
-    parsedQueueFilms.length > 0
-  ) {
-    emptyLibraryContaineRef.style.display = 'none';
-    libraryListRef.innerHTML = '';
-    infinityScroll(parsedQueueFilms);
+
+    if (watchedLibraryBtn.classList.contains('active-button')) {
+      infinityScroll(parsedWatchedFilms);
+    } else if (queueLibraryBtn.classList.contains('active-button')) {
+      infinityScroll(parsedQueueFilms);
+    }
   }
 }
 
+
+
 function closeModalOnEscape(event) {
-  if (event.key !== 'Escape') {
+  if (event.code !== 'Escape') {
     return;
   }
-
   updateLibraryMarkup();
 }
 

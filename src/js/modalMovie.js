@@ -5,8 +5,8 @@ import { textModalBtn, addWatchList, addQueueList } from './watchQueueBtn';
 export const backdgop = document.querySelector('.js-backdrop');
 const modalMovie = document.querySelector('.js-modal-movie');
 const movieBox = document.querySelector('.js-movie-box');
-const movieImg = document.querySelector('.library-empty');
-const moviePoster = document.querySelector('.library-empty__image');
+// const movieImg = document.querySelector('.library-empty');
+// const moviePoster = document.querySelector('.library-empty__image');
 export const closeModalBtn = document.querySelector('.js-close-btn');
 const movieList =
   document.querySelector('.js-movieList') ||
@@ -45,7 +45,6 @@ function closeModalOnEscapePress(event) {
     document.removeEventListener('keydown', closeModalOnEscapePress);
     // movieImg.classList.add('visually-hidden');
     // moviePoster.classList.add('visually-hidden');
-
   }
 }
 
@@ -54,7 +53,6 @@ function onBackdropClick(event) {
     hideModal();
     // movieImg.classList.add('visually-hidden');
     // moviePoster.classList.add('visually-hidden');
-
   }
 }
 
@@ -65,7 +63,6 @@ function showModal() {
 }
 
 function hideModal() {
-
   modalMovie.parentElement.classList.add('is-hidden');
   modalMovie.classList.add('is-hidden');
   document.body.classList.remove('no-scroll');
