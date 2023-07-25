@@ -161,33 +161,6 @@ function closeModalOnbackDrop(event) {
   }
 }
 
-// function infinityScroll(parsedFilms) {
-//   console.log(parsedFilms);
-//   let dynamicStart = 0;
-//   let dynamicEnd = 9;
-//   let slicedMoviesArr = parsedFilms.slice(dynamicStart, dynamicEnd);
-//   document.addEventListener('scroll', function() {
-//     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-//       for (let i = dynamicStart; dynamicStart < dynamicEnd; i++) {
-//         dynamicStart += 9;
-//         dynamicEnd += 9;
-//         slicedMoviesArr = parsedFilms.slice(dynamicStart, dynamicEnd);
-//         if (dynamicEnd >= parsedFilms.length) break;
-//       }
-//       slicedMoviesArr.map(id => {
-//         return fetchLibraryMovieByID(id).then(data => {
-//           createMovieLibraryMarkup(data);
-//         });
-//       });
-//     }
-//   });
-//   slicedMoviesArr.map(id => {
-//     return fetchLibraryMovieByID(id).then(data => {
-//       createMovieLibraryMarkup(data);
-//     });
-//   });
-// }
-
 
 
 function infinityScroll(parsedFilms) {
@@ -195,7 +168,7 @@ function infinityScroll(parsedFilms) {
   const batchSize = 9;
 
   function loadMoreMovies() {
-    const scrollPosition = window.innerHeight + window.scrollY;
+    const scrollPosition = window.innerHeight + window.scrollY + 1;
     const pageHeight = document.body.offsetHeight;
 
     // Перевіримо, чи доскролили до кінця сторінки і ще є фільми для завантаження
@@ -229,3 +202,5 @@ function infinityScroll(parsedFilms) {
   // Запустимо перше завантаження фільмів
   loadNextBatch();
 }
+
+
