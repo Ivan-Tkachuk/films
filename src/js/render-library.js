@@ -7,6 +7,9 @@ const libraryListRef = document.querySelector('.library_list');
 const watchedLibraryBtn = document.querySelector('.js-watched');
 const queueLibraryBtn = document.querySelector('.js-queue');
 
+// let lastRenderedIndex = 0;
+
+
 onWatchedLibraryBtnClick();
 
 watchedLibraryBtn.addEventListener('click', onWatchedLibraryBtnClick);
@@ -158,29 +161,71 @@ function closeModalOnbackDrop(event) {
   }
 }
 
+// function infinityScroll(parsedFilms) {
+//   console.log(parsedFilms);
+//   let dynamicStart = 0;
+//   let dynamicEnd = 9;
+//   let slicedMoviesArr = parsedFilms.slice(dynamicStart, dynamicEnd);
+//   document.addEventListener('scroll', function() {
+//     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+//       for (let i = dynamicStart; dynamicStart < dynamicEnd; i++) {
+//         dynamicStart += 9;
+//         dynamicEnd += 9;
+//         slicedMoviesArr = parsedFilms.slice(dynamicStart, dynamicEnd);
+//         if (dynamicEnd >= parsedFilms.length) break;
+//       }
+//       slicedMoviesArr.map(id => {
+//         return fetchLibraryMovieByID(id).then(data => {
+//           createMovieLibraryMarkup(data);
+//         });
+//       });
+//     }
+//   });
+//   slicedMoviesArr.map(id => {
+//     return fetchLibraryMovieByID(id).then(data => {
+//       createMovieLibraryMarkup(data);
+//     });
+//   });
+// }
+
+
+
 function infinityScroll(parsedFilms) {
-  console.log(parsedFilms);
   let dynamicStart = 0;
-  let dynamicEnd = 9;
-  let slicedMoviesArr = parsedFilms.slice(dynamicStart, dynamicEnd);
-  document.addEventListener('scroll', function() {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-      for (let i = dynamicStart; dynamicStart < dynamicEnd; i++) {
-        dynamicStart += 9;
-        dynamicEnd += 9;
-        slicedMoviesArr = parsedFilms.slice(dynamicStart, dynamicEnd);
-        if (dynamicEnd >= parsedFilms.length) break;
-      }
-      slicedMoviesArr.map(id => {
-        return fetchLibraryMovieByID(id).then(data => {
-          createMovieLibraryMarkup(data);
-        });
-      });
+  const batchSize = 9;
+
+  function loadMoreMovies() {
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const pageHeight = document.body.offsetHeight;
+
+    // Перевіримо, чи доскролили до кінця сторінки і ще є фільми для завантаження
+    if (scrollPosition >= pageHeight && dynamicStart < parsedFilms.length) {
+      loadNextBatch();
     }
-  });
-  slicedMoviesArr.map(id => {
-    return fetchLibraryMovieByID(id).then(data => {
-      createMovieLibraryMarkup(data);
+  }
+
+  // Додамо власну функцію, яка буде догружати фільми в окремому блоку
+  function loadNextBatch() {
+    const dynamicEnd = Math.min(dynamicStart + batchSize, parsedFilms.length);
+    const slicedMoviesArr = parsedFilms.slice(dynamicStart, dynamicEnd);
+
+    slicedMoviesArr.forEach((id) => {
+      fetchLibraryMovieByID(id).then((data) => {
+        createMovieLibraryMarkup(data);
+      });
     });
-  });
+
+    dynamicStart += batchSize;
+
+    // Перевіримо, чи є ще фільми для завантаження
+    if (dynamicStart >= parsedFilms.length) {
+      document.removeEventListener('scroll', loadMoreMovies);
+    }
+  }
+
+  // При першому завантаженні додамо слухача на прокрутку сторінки
+  document.addEventListener('scroll', loadMoreMovies);
+
+  // Запустимо перше завантаження фільмів
+  loadNextBatch();
 }
