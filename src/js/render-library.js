@@ -7,8 +7,6 @@ const libraryListRef = document.querySelector('.library_list');
 const watchedLibraryBtn = document.querySelector('.js-watched');
 const queueLibraryBtn = document.querySelector('.js-queue');
 
-// let lastRenderedIndex = 0;
-
 
 onWatchedLibraryBtnClick();
 
@@ -33,6 +31,8 @@ function onWatchedLibraryBtnClick() {
     emptyLibraryContaineRef.style.display = 'none';
     infinityScroll(parsedWatchedFilms);
   }
+  // updateLibraryMarkup();
+
 }
 
 function onQueueLibraryBtnClick() {
@@ -50,6 +50,7 @@ function onQueueLibraryBtnClick() {
     emptyLibraryContaineRef.style.display = 'none';
     infinityScroll(parsedQueueFilms);
   }
+  // updateLibraryMarkup();
 }
 
 function createMovieLibraryMarkup({
@@ -139,13 +140,14 @@ function updateLibraryMarkup() {
     libraryListRef.innerHTML = '';
 
     if (watchedLibraryBtn.classList.contains('active-button')) {
+      console.log('parsedWatchedFilms', parsedWatchedFilms)
       infinityScroll(parsedWatchedFilms);
     } else if (queueLibraryBtn.classList.contains('active-button')) {
+      console.log('parsedQueueFilms', parsedQueueFilms)
       infinityScroll(parsedQueueFilms);
     }
   }
 }
-
 
 
 function closeModalOnEscape(event) {
@@ -166,6 +168,7 @@ function closeModalOnbackDrop(event) {
 function infinityScroll(parsedFilms) {
   let dynamicStart = 0;
   const batchSize = 9;
+  
 
   function loadMoreMovies() {
     const scrollPosition = window.innerHeight + window.scrollY + 1;
@@ -174,6 +177,7 @@ function infinityScroll(parsedFilms) {
     // Перевіримо, чи доскролили до кінця сторінки і ще є фільми для завантаження
     if (scrollPosition >= pageHeight && dynamicStart < parsedFilms.length) {
       loadNextBatch();
+      // console.log(parsedFilms.length);
     }
   }
 
@@ -190,14 +194,14 @@ function infinityScroll(parsedFilms) {
 
     dynamicStart += batchSize;
 
-    // Перевіримо, чи є ще фільми для завантаження
-    if (dynamicStart >= parsedFilms.length) {
-      document.removeEventListener('scroll', loadMoreMovies);
+        if (dynamicStart < parsedFilms.length) {
+      document.addEventListener('scroll', loadMoreMovies);
     }
-  }
 
-  // При першому завантаженні додамо слухача на прокрутку сторінки
-  document.addEventListener('scroll', loadMoreMovies);
+
+    console.log(parsedFilms.length);
+    console.log(dynamicStart);
+  }
 
   // Запустимо перше завантаження фільмів
   loadNextBatch();
