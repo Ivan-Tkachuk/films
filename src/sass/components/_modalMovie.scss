@@ -184,6 +184,24 @@
   }
 }
 
+// .control-btns {
+//   display: flex;
+//   justify-content: flex-end;
+//   column-gap: 20px;
+
+//   @media screen and (min-width: $tablet) {
+//     column-gap: 15px;
+//     position: absolute;
+//     right: 72px;
+//     bottom: 40px;
+//   }
+
+//   @media screen and (min-width: $desktop) {
+//     right: 108px;
+//     bottom: 111px;
+//   }
+// }
+
 .control-btns {
   display: flex;
   justify-content: flex-end;
@@ -191,14 +209,12 @@
 
   @media screen and (min-width: $tablet) {
     column-gap: 15px;
-    position: absolute;
-    right: 72px;
-    bottom: 40px;
+    margin-right: 72px;
+    margin-top: 20px;
   }
 
   @media screen and (min-width: $desktop) {
-    right: 108px;
-    bottom: 111px;
+    margin-right: 96px;
   }
 }
 

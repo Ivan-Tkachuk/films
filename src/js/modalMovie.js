@@ -30,12 +30,12 @@ function onMovieClick(event) {
     showModal();
     document.addEventListener('keydown', closeModalOnEscapePress);
     renderMovieById(selectedMovieId);
-    textModalBtn(selectedMovieId);
+    // textModalBtn(selectedMovieId);
 
-    const btnQueue = document.querySelector('.control-btn--to-queue');
-    const btnWatch = document.querySelector('.control-btn--to-watched');
-    btnQueue.addEventListener('click', addQueueList);
-    btnWatch.addEventListener('click', addWatchList);
+    // const btnQueue = document.querySelector('.control-btn--to-queue');
+    // const btnWatch = document.querySelector('.control-btn--to-watched');
+    // btnQueue.addEventListener('click', addQueueList);
+    // btnWatch.addEventListener('click', addWatchList);
   }
 }
 
@@ -131,9 +131,30 @@ function makeMovieMarkup(data) {
                 </table>
                 <h3 class="movie-card__about-title">About</h3>
                 <p class="movie-card__movie-description">${overview}</p> 
+                <ul class="control-btns">
+                <li>
+                  <button class="control-btn control-btn--to-watched" type="button">
+                    add to Watched
+                  </button>
+                </li>
+                <li>
+                  <button class="control-btn control-btn--to-queue" type="button">
+                    add to queue
+                  </button>
+                </li>
+              </ul>
             </div>`;
   movieBox.innerHTML = markup;
+
+  textModalBtn(selectedMovieId);
+
+  const btnQueue = document.querySelector('.control-btn--to-queue');
+  const btnWatch = document.querySelector('.control-btn--to-watched');
+  btnQueue.addEventListener('click', addQueueList);
+  btnWatch.addEventListener('click', addWatchList);
 }
+
+
 
 async function renderMovieById(id) {
   try {
