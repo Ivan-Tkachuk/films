@@ -17,7 +17,6 @@ movieList.addEventListener('click', onMovieClick);
 backdgop.addEventListener('click', onBackdropClick);
 
 export let selectedMovieId;
-// export let isModalOpen = false;
 
 function onMovieClick(event) {
   const movieCard = event.target;
@@ -44,7 +43,7 @@ function closeModalOnEscapePress(event) {
   if (event.code === 'Escape') {
     hideModal();
     document.removeEventListener('keydown', closeModalOnEscapePress);
-    // isModalOpen = true;
+
     // movieImg.classList.add('visually-hidden');
     // moviePoster.classList.add('visually-hidden');
   }
@@ -53,7 +52,6 @@ function closeModalOnEscapePress(event) {
 function onBackdropClick(event) {
   if (event.target === event.currentTarget) {
     hideModal();
-    // isModalOpen = false;
     // movieImg.classList.add('visually-hidden');
     // moviePoster.classList.add('visually-hidden');
   }
@@ -63,8 +61,6 @@ function showModal() {
   modalMovie.parentElement.classList.remove('is-hidden');
   modalMovie.classList.remove('is-hidden');
   document.body.classList.add('no-scroll');
-  // isModalOpen = false;
-  // console.log('isModalOpen', isModalOpen);
 }
 
 function hideModal() {

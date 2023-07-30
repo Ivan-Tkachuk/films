@@ -22,7 +22,7 @@ export function textModalBtn(MovieId) {
       btnWatch.textContent = 'Remove from watched';
       btnWatch.classList.add('active-button');
     }
-    setTimeout(changeText, 500);
+    setTimeout(changeText, 10);
   } else {
     btnWatch.textContent = 'Add to watched';
     btnWatch.classList.remove('active-button');
@@ -37,7 +37,7 @@ export function textModalBtn(MovieId) {
       btnQueue.textContent = 'Remove from queue';
       btnQueue.classList.add('active-button');
     }
-    setTimeout(changeText, 750);
+    setTimeout(changeText, 10);
   } else {
     btnQueue.textContent = 'Add to queue';
     btnQueue.classList.remove('active-button');

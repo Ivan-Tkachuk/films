@@ -1,8 +1,6 @@
 import { onSpinnerDisabled, onSpinnerEnabled } from './loader-spinner';
 import { genres } from '../data/genres.json';
 import { closeModalBtn, backdgop } from './modalMovie';
-// import { closeModalBtn, backdgop, isModalOpen } from './modalMovie';
-
 
 const emptyLibraryContaineRef = document.querySelector('.library-empty');
 const libraryListRef = document.querySelector('.library_list');
@@ -119,7 +117,6 @@ async function fetchLibraryMovieByID(id) {
 
 
 function updateLibraryMarkup() {
-  removeScrollListener();
   const parsedWatchedFilms = JSON.parse(localStorage.getItem('watchedList'));
   const parsedQueueFilms = JSON.parse(localStorage.getItem('queueList'));
 
@@ -143,16 +140,13 @@ function updateLibraryMarkup() {
     libraryListRef.innerHTML = '';
 
     if (watchedLibraryBtn.classList.contains('active-button')) {
-      // console.log('parsedWatchedFilms', parsedWatchedFilms)
+      console.log('parsedWatchedFilms', parsedWatchedFilms)
       infinityScroll(parsedWatchedFilms);
     } else if (queueLibraryBtn.classList.contains('active-button')) {
-      // console.log('parsedQueueFilms', parsedQueueFilms)
+      console.log('parsedQueueFilms', parsedQueueFilms)
       infinityScroll(parsedQueueFilms);
     }
   }
-  // console.log('isModalOpenBefor', isModalOpen);
-  // isModalOpen = false;
-  // console.log('isModalOpenAfter', isModalOpen);
 }
 
 
@@ -162,10 +156,6 @@ function closeModalOnEscape(event) {
   }
     removeScrollListener();
     updateLibraryMarkup();
-  // if (isModalOpen) {
-  //   removeScrollListener();
-  //   updateLibraryMarkup();
-  // }
 }
 
 function closeModalOnbackDrop(event) {
@@ -187,6 +177,7 @@ function infinityScroll(parsedFilms) {
   let dynamicStart = 0;
   const batchSize = 9;
   
+  removeScrollListener();
 
   function loadMoreMovies() {
     const scrollPosition = window.innerHeight + window.scrollY + 1;
