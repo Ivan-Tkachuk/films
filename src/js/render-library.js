@@ -1,6 +1,8 @@
 import { onSpinnerDisabled, onSpinnerEnabled } from './loader-spinner';
 import { genres } from '../data/genres.json';
-import { closeModalBtn, backdgop, isModalOpen } from './modalMovie';
+import { closeModalBtn, backdgop } from './modalMovie';
+// import { closeModalBtn, backdgop, isModalOpen } from './modalMovie';
+
 
 const emptyLibraryContaineRef = document.querySelector('.library-empty');
 const libraryListRef = document.querySelector('.library_list');
@@ -148,12 +150,9 @@ function updateLibraryMarkup() {
       infinityScroll(parsedQueueFilms);
     }
   }
-  console.log('isModalOpenBefor', isModalOpen);
-
-  isModalOpen = false;
-  console.log('isModalOpenAfter', isModalOpen);
-
-
+  // console.log('isModalOpenBefor', isModalOpen);
+  // isModalOpen = false;
+  // console.log('isModalOpenAfter', isModalOpen);
 }
 
 
@@ -161,10 +160,12 @@ function closeModalOnEscape(event) {
   if (event.code !== 'Escape') {
     return;
   }
-  if (isModalOpen) {
     removeScrollListener();
     updateLibraryMarkup();
-  }
+  // if (isModalOpen) {
+  //   removeScrollListener();
+  //   updateLibraryMarkup();
+  // }
 }
 
 function closeModalOnbackDrop(event) {
