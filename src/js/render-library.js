@@ -1,11 +1,13 @@
 import { onSpinnerDisabled, onSpinnerEnabled } from './loader-spinner';
 import { genres } from '../data/genres.json';
-import { closeModalBtn, backdgop } from './modalMovie';
+import { closeModalBtn, backdgop, isModalOpen } from './modalMovie';
 
 const emptyLibraryContaineRef = document.querySelector('.library-empty');
 const libraryListRef = document.querySelector('.library_list');
 const watchedLibraryBtn = document.querySelector('.js-watched');
 const queueLibraryBtn = document.querySelector('.js-queue');
+
+let scrollEventListener = null;
 
 
 onWatchedLibraryBtnClick();
@@ -31,8 +33,6 @@ function onWatchedLibraryBtnClick() {
     emptyLibraryContaineRef.style.display = 'none';
     infinityScroll(parsedWatchedFilms);
   }
-  // updateLibraryMarkup();
-
 }
 
 function onQueueLibraryBtnClick() {
@@ -50,7 +50,6 @@ function onQueueLibraryBtnClick() {
     emptyLibraryContaineRef.style.display = 'none';
     infinityScroll(parsedQueueFilms);
   }
-  // updateLibraryMarkup();
 }
 
 function createMovieLibraryMarkup({
@@ -118,6 +117,7 @@ async function fetchLibraryMovieByID(id) {
 
 
 function updateLibraryMarkup() {
+  removeScrollListener();
   const parsedWatchedFilms = JSON.parse(localStorage.getItem('watchedList'));
   const parsedQueueFilms = JSON.parse(localStorage.getItem('queueList'));
 
@@ -125,6 +125,7 @@ function updateLibraryMarkup() {
   const queueFilmsEmpty = !parsedQueueFilms || parsedQueueFilms.length === 0;
 
   let showEmptyLibrary = false;
+
 
   if (watchedLibraryBtn.classList.contains('active-button') && watchedFilmsEmpty) {
     showEmptyLibrary = true;
@@ -140,13 +141,19 @@ function updateLibraryMarkup() {
     libraryListRef.innerHTML = '';
 
     if (watchedLibraryBtn.classList.contains('active-button')) {
-      console.log('parsedWatchedFilms', parsedWatchedFilms)
+      // console.log('parsedWatchedFilms', parsedWatchedFilms)
       infinityScroll(parsedWatchedFilms);
     } else if (queueLibraryBtn.classList.contains('active-button')) {
-      console.log('parsedQueueFilms', parsedQueueFilms)
+      // console.log('parsedQueueFilms', parsedQueueFilms)
       infinityScroll(parsedQueueFilms);
     }
   }
+  console.log('isModalOpenBefor', isModalOpen);
+
+  isModalOpen = false;
+  console.log('isModalOpenAfter', isModalOpen);
+
+
 }
 
 
@@ -154,16 +161,26 @@ function closeModalOnEscape(event) {
   if (event.code !== 'Escape') {
     return;
   }
-  updateLibraryMarkup();
+  if (isModalOpen) {
+    removeScrollListener();
+    updateLibraryMarkup();
+  }
 }
 
 function closeModalOnbackDrop(event) {
   if (event.target === event.currentTarget) {
+    removeScrollListener();
     updateLibraryMarkup();
   }
 }
 
 
+function removeScrollListener() {
+  if (scrollEventListener) {
+    document.removeEventListener('scroll', scrollEventListener);
+    scrollEventListener = null;
+  }
+}
 
 function infinityScroll(parsedFilms) {
   let dynamicStart = 0;
@@ -177,10 +194,8 @@ function infinityScroll(parsedFilms) {
     // Перевіримо, чи доскролили до кінця сторінки і ще є фільми для завантаження
     if (scrollPosition >= pageHeight && dynamicStart < parsedFilms.length) {
       loadNextBatch();
-      // console.log(parsedFilms.length);
     }
   }
-
   // Додамо власну функцію, яка буде догружати фільми в окремому блоку
   function loadNextBatch() {
     const dynamicEnd = Math.min(dynamicStart + batchSize, parsedFilms.length);
@@ -198,12 +213,17 @@ function infinityScroll(parsedFilms) {
       document.addEventListener('scroll', loadMoreMovies);
     }
 
-
-    console.log(parsedFilms.length);
-    console.log(dynamicStart);
+    // console.log('parsedFilms.length', parsedFilms.length);
+    // console.log('dynamicStart', dynamicStart);
   }
 
-  // Запустимо перше завантаження фільмів
+
+  function addScrollListener() {
+    scrollEventListener = loadMoreMovies;
+    document.addEventListener('scroll', scrollEventListener);
+  }
+
+  addScrollListener();
   loadNextBatch();
 }
 
